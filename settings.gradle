@@ -1,0 +1,2 @@
+rootProject.name = "LessonFirstProject"
+include ':app'
