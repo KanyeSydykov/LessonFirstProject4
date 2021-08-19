@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">LessonFirstProject</string>
+    <string name="app_name">.</string>
     <string name="write_smth">write smth</string>
     <string name="intent">Intent</string>
-
+    <string name="warning">Please enter some message</string>
+    <string name="warning1">\" Please enter some message! \"</string>
 </resources>
