@@ -1,51 +1,68 @@
 package kg.geektech.lessonfirstproject
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import kg.geektech.lessonfirstproject.databinding.ActivityMainBinding
 
-const val edit = "edit1"
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val edit2: String? = intent.getStringExtra("edit2")
-        binding.intentEditTextActivityMain.setText(edit2)
-
-        binding.intentButtonActivityMain.setOnClickListener {
-            val edit1: String = binding.intentEditTextActivityMain.text.toString()
-
-            if (binding.intentEditTextActivityMain.text.toString() == "") {
-                Toast.makeText(
-                    this, getString(R.string.warning1),
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                val intent = Intent(this, SecondActivity::class.java)
-                intent.putExtra(edit, edit1)
-                startActivityForResult(intent, oboba)
-                setResult(RESULT_OK, intent)
-                finish()
-            }
-        }
-
-
+        registerForActivity()
+        setupListener()
     }
 
-    companion object {
+    private fun setupListener() {
+        binding.intentButtonActivityMain.setOnClickListener {
+            if (binding.intentEditTextActivityMain.text.toString() == "") {
+                Toast.makeText(
+                    this, (R.string.warning1),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else openActivity()
+        }
+    }
 
-        val oboba = 0
+    private fun registerForActivity() {
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    binding.intentEditTextActivityMain.setText(
+                        result.data?.getStringExtra(
+                            EXTRA_MESSAGE
+                        )
+                    )
 
+                }
+            }
+    }
+
+    private fun openActivity() {
+        val intent = Intent(this, ActivityTwo::class.java).apply {
+            putExtra(EXTRA_MESSAGE, binding.intentEditTextActivityMain.text.toString())
+        }
+        resultLauncher.launch(intent)
     }
 
 }
+
+
+
 
 

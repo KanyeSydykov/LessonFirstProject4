@@ -1,14 +1,16 @@
 package kg.geektech.lessonfirstproject
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.widget.Toast
 import kg.geektech.lessonfirstproject.databinding.ActivitySecondBinding
 
-const val edit3 = "edit2"
 
-class SecondActivity : AppCompatActivity() {
+
+class ActivityTwo : AppCompatActivity() {
 
     private lateinit var binding: ActivitySecondBinding
 
@@ -17,25 +19,30 @@ class SecondActivity : AppCompatActivity() {
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val edit1: String? = intent.getStringExtra("edit1")
-        binding.intentEditTextActivitySecond.setText(edit1)
+        checkIntent()
+        setupListener()
+    }
 
-        binding.intentButtonActivityMain.setOnClickListener {
-            val edit2: String = binding.intentEditTextActivitySecond.text.toString()
+    private fun checkIntent() {
+        binding.intentEditTextActivitySecond.setText(intent.getStringExtra(EXTRA_MESSAGE))
+    }
 
+    private fun setupListener() {
+        binding.intentButtonActivitySecond.setOnClickListener {
             if (binding.intentEditTextActivitySecond.text.toString() == "") {
                 Toast.makeText(
-                    this, getString(R.string.warning1),
+                    this, (R.string.warning1),
                     Toast.LENGTH_SHORT
                 ).show()
-            } else {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra(edit3, edit2)
-                startActivityForResult(intent, MainActivity.oboba)
-                setResult(RESULT_OK, intent)
-                finish()
-            }
+            } else openActivity()
         }
+    }
 
+    private fun openActivity() {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra(EXTRA_MESSAGE, binding.intentEditTextActivitySecond.text.toString())
+        }
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 }

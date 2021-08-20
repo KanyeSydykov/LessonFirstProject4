@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/intent_button_activity_main"
+        android:id="@+id/intent_button_activity_second"
         style="@style/IntentButtonStyle"
         android:text="@string/intent"
         app:layout_constraintBottom_toBottomOf="parent"
