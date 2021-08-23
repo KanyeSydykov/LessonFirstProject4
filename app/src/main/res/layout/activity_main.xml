@@ -23,9 +23,18 @@
         android:id="@+id/intent_button_activity_main"
         style="@style/IntentButtonStyle"
         android:text="@string/intent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/rv_button_activity_main"
+        android:layout_width="110dp"
+        android:layout_height="45dp"
+        android:layout_margin="40dp"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:text="Check"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

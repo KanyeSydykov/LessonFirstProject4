@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.widget.Toast
+import kg.geektech.lessonfirstproject.MainActivity.Companion.KEY_RES
 import kg.geektech.lessonfirstproject.databinding.ActivitySecondBinding
-
 
 
 class ActivityTwo : AppCompatActivity() {
@@ -24,7 +24,7 @@ class ActivityTwo : AppCompatActivity() {
     }
 
     private fun checkIntent() {
-        binding.intentEditTextActivitySecond.setText(intent.getStringExtra(EXTRA_MESSAGE))
+        binding.intentEditTextActivitySecond.setText(intent.getStringExtra(KEY_RES))
     }
 
     private fun setupListener() {
@@ -40,9 +40,10 @@ class ActivityTwo : AppCompatActivity() {
 
     private fun openActivity() {
         val intent = Intent(this, MainActivity::class.java).apply {
-            putExtra(EXTRA_MESSAGE, binding.intentEditTextActivitySecond.text.toString())
+            putExtra(KEY_RES, binding.intentEditTextActivitySecond.text.toString())
         }
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
+
 }
